@@ -61,7 +61,16 @@ class Subject(models.Model):
         return self.name
 
 
+class Lesson(models.Model):
+    subject = models.ForeignKey(Subject,on_delete=models.CASCADE)
+    staff = models.ForeignKey(Staff,on_delete=models.CASCADE)
+    lesson_title = models.TextField()
+    notes = models.FileField(upload_to='media/lesson_note')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.subject
 
 
 

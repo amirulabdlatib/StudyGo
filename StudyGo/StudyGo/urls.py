@@ -113,7 +113,7 @@ urlpatterns = [
     path('Hod/Student/feedback/reply/save',Hod_Views.REPLY_STUDENT_FEEDBACK,name='reply_student_feedback'),
 
     path('Hod/View/Attendance',Hod_Views.VIEW_ATTENDANCE,name='view_attendance'),
-    path('Student/View_Result',Student_Views.VIEW_RESULT,name='view_result'),
+    path('Student/View_Result/',Student_Views.VIEW_RESULT,name='view_result'),
     
 
 
@@ -128,6 +128,10 @@ urlpatterns = [
 
     path('Staff/Feedback',Staff_Views.STAFF_FEEDBACK,name='staff_feedback'),
     path('Staff/Feedback/Save',Staff_Views.STAFF_FEEDBACK_SAVE,name='staff_feedback_save'),
+
+
+    path('Staff/View_Lesson/<str:id>',Staff_Views.VIEW_LESSON,name='view_lesson'),
+
 
     #Student Urls
     path('Student/Home',Student_Views.HOME,name='student_home'),

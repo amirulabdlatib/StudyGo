@@ -6,7 +6,17 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/')
 def HOME(request):
-    return render(request,'Staff/home.html')
+
+    staff_id = Staff.objects.get(admin = request.user.id)
+    subject = Subject.objects.filter(staff = staff_id)
+    student_count = Student.objects.all().count()
+
+    context ={
+        'subject':subject,
+        'student_count':student_count,
+    }
+
+    return render(request,'Staff/home.html',context=context)
 
 @login_required(login_url='/')
 def NOTIFICATIONS(request):
@@ -276,3 +286,7 @@ def STAFF_SAVE_RESULT(request):
             result.save()
             messages.success(request,'Result Are Successfully Added')
             return redirect('staff_add_result')
+        
+
+def VIEW_LESSON(request,id):
+    return render(request,'Staff/view_lesson.html')

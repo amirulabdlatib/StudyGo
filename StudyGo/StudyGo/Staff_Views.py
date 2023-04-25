@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from StudyApp.models import Attendance_Report,Attendance,Session_Year,Student,Staff,Subject,Staff_Notification,Staff_leave,Staff_Feedback,StudentResult
+from StudyApp.models import Attendance_Report,Attendance,Session_Year,Student,Staff,Subject,Staff_Notification,Staff_leave,Staff_Feedback,StudentResult,Course
 from django.contrib.auth.decorators import login_required
 
 
@@ -9,11 +9,9 @@ def HOME(request):
 
     staff_id = Staff.objects.get(admin = request.user.id)
     subject = Subject.objects.filter(staff = staff_id)
-    student_count = Student.objects.all().count()
-
+    
     context ={
         'subject':subject,
-        'student_count':student_count,
     }
 
     return render(request,'Staff/home.html',context=context)
@@ -289,4 +287,17 @@ def STAFF_SAVE_RESULT(request):
         
 
 def VIEW_LESSON(request,id):
-    return render(request,'Staff/view_lesson.html')
+
+    get_subject = Subject.objects.get(id=id)
+
+    subject = Subject.objects.filter(id=id)
+    for i in subject:
+        student_id = i.course.id
+        students_count = Student.objects.filter(course_id=student_id).count()  
+
+    context ={
+        'subject':get_subject,
+        'students_count':students_count,
+    }
+
+    return render(request,'Staff/view_lesson.html',context=context)

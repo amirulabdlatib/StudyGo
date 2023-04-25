@@ -131,7 +131,6 @@ urlpatterns = [
 
 
 
-
     #Student Urls
     path('Student/Home',Student_Views.HOME,name='student_home'),
 

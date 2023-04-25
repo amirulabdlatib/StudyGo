@@ -276,4 +276,3 @@ def STAFF_SAVE_RESULT(request):
             result.save()
             messages.success(request,'Result Are Successfully Added')
             return redirect('staff_add_result')
-        

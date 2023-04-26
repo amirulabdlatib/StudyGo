@@ -130,6 +130,9 @@ urlpatterns = [
     path('Staff/Feedback/Save',Staff_Views.STAFF_FEEDBACK_SAVE,name='staff_feedback_save'),
 
 
+    path('Staff/Add/Lesson',Staff_Views.STAFF_ADD_LESSON,name='staff_add_lesson'),
+    path('Staff/View/Lesson',Staff_Views.STAFF_VIEW_LESSON,name='staff_view_lesson'),
+
 
     #Student Urls
     path('Student/Home',Student_Views.HOME,name='student_home'),

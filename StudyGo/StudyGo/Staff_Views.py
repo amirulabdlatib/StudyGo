@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from StudyApp.models import Attendance_Report,Attendance,Session_Year,Student,Staff,Subject,Staff_Notification,Staff_leave,Staff_Feedback,StudentResult,Course
+from StudyApp.models import Lesson,Attendance_Report,Attendance,Session_Year,Student,Staff,Subject,Staff_Notification,Staff_leave,Staff_Feedback,StudentResult,Course
 from django.contrib.auth.decorators import login_required
 
 
@@ -276,3 +276,45 @@ def STAFF_SAVE_RESULT(request):
             result.save()
             messages.success(request,'Result Are Successfully Added')
             return redirect('staff_add_result')
+
+
+def STAFF_VIEW_LESSON(request):
+
+    staff = Staff.objects.get(admin = request.user.id)
+
+    subjects = Subject.objects.filter(staff_id = staff)
+
+    context = {
+        'subjects':subjects
+    }
+
+    return render(request,'Staff/view_lesson.html',context=context)
+
+
+def STAFF_ADD_LESSON(request):
+
+    staff = Staff.objects.get(admin = request.user.id)
+    subjects = Subject.objects.filter(staff_id = staff)
+
+    if request.method == "POST":
+        subject_id = request.POST.get('subject_id')
+        lesson_title = request.POST.get('lesson_title')
+        notes = request.FILES.get('lesson_file')
+
+        subject = Subject.objects.get(id = subject_id)
+
+        lesson = Lesson(
+            subject_id = subject,
+            lesson_title = lesson_title,
+            notes = notes
+        ) 
+
+        lesson.save()
+        messages.success(request,'Lesson Are Successfully Added')
+        return redirect('staff_add_lesson')
+    
+    context = {
+        'subjects':subjects
+    }
+
+    return render(request,'Staff/add_lesson.html',context=context)

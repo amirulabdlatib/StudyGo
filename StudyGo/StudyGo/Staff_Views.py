@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='/')
 def HOME(request):
+    
     return render(request,'Staff/home.html')
 
 @login_required(login_url='/')
@@ -280,13 +281,25 @@ def STAFF_SAVE_RESULT(request):
 
 def STAFF_VIEW_LESSON(request):
 
-    staff = Staff.objects.get(admin = request.user.id)
+    staff_id = Staff.objects.get(admin = request.user.id)
+    subject = Subject.objects.filter(staff = staff_id)
+    action = request.GET.get('action')
+    lessons = None
+    get_subject = None
 
-    subjects = Subject.objects.filter(staff_id = staff)
+    if action is not None:
+        subject_id = request.POST.get('subject_id')
+        get_subject = Subject.objects.get(id = subject_id)
+        
+        lessons = Lesson.objects.filter(subject_id = subject_id)
 
     context = {
-        'subjects':subjects
+        'subject':subject,
+        'action':action,
+        'get_subject':get_subject,
+        'lessons':lessons
     }
+
 
     return render(request,'Staff/view_lesson.html',context=context)
 
@@ -318,3 +331,11 @@ def STAFF_ADD_LESSON(request):
     }
 
     return render(request,'Staff/add_lesson.html',context=context)
+
+def delete_lesson(request,id):
+
+   lesson = Lesson.objects.get(id=id)
+   lesson.delete()
+   messages.success(request,'Lesson Successfully Deleted!')
+
+   return redirect('staff_view_lesson')

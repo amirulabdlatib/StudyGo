@@ -1,134 +1,127 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <div class="content container-fluid">
-    <div class="page-header">
-      <div class="row align-items-center">
-        <div class="col">
-          <h3 class="page-title">View Lesson</h3>
-          <ul class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="subjects.html">Lesson</a>
-            </li>
-            <li class="breadcrumb-item active">View Lesson</li>
-          </ul>
-        </div>
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col">
+        <h3 class="page-title">View Lesson</h3>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="subjects.html">Lesson</a>
+          </li>
+          <li class="breadcrumb-item active">View Lesson</li>
+        </ul>
       </div>
     </div>
-  
-    
-    {% include 'includes/messages.html' %}
-  
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="card">
-          <div class="card-body">
+  </div>
 
-            {% if action is None %}
+  {% include 'includes/messages.html' %}
 
-            <form action = "?action=get_lesson" method = "POST">
-              {% csrf_token %}
-              <div class="row">
-                <div class="col-12">
-                  <h5 class="form-title">
-                    <span>View Lesson</span>
-                  </h5>
-                </div>
-                <div class="col-12 col-sm-6">
-                  <label>Subject</label>
-                  <select class="form-control" name="subject_id" required>
-                    <option>Select Subject</option>
-                    {% for i in subjects %}
-                    <option value="{{i.id}}">{{i.name}}</option>
-                    {% endfor %}
-                  </select>
-                </div>
-                <div class="col-12 mt-4">
-                  <button type="submit" class="btn btn-primary">Fetch Topic</button>
-                </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          {% if action is None %}
+
+          <form action="?action=get_lesson" method="POST">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-12">
+                <h5 class="form-title">
+                  <span>View Lesson</span>
+                </h5>
               </div>
-            </form>
+              <div class="col-12 col-sm-6">
+                <label>Subject</label>
+                <select class="form-control" name="subject_id" required>
+                  <option>Select Subject</option>
+                  {% for i in subject %}
+                  <option value="{{i.id}}">{{i.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-12 mt-4">
+                <button type="submit" class="btn btn-primary">
+                  Fetch Lesson
+                </button>
+              </div>
+            </div>
+          </form>
 
-            {% else %}
+          {% else %}
 
-            <form action = {% url 'staff_save_attendance' %} method = "POST">
-                {% csrf_token %}
-                <div class="row">
-                  <div class="col-12">
-                    <h5 class="form-title">
-                      <span>Subject Information</span>
-                    </h5>
-                  </div>
-                 
-                  <div class="col-12 col-sm-6">
-                    <label>Subject</label>
-                    <select class="form-control" name="subject_id" required>
-                      
-                      <option value="{{get_subject.id}}">{{get_subject}}</option>
-                     
-                    </select>
-                  </div>
+          <div class="row">
+            <div class="col-12">
+              <h5 class="form-title">
+                <span>Subject Information</span>
+              </h5>
+            </div>
 
+            <div class="col-12 col-sm-6">
+              <label>Subject</label>
+              <select class="form-control" name="subject_id" required>
+                <option value="{{get_subject.id}}">{{get_subject}}</option>
+              </select>
+            </div>
 
-                  <div class="col-12 col-sm-6">
-                    <label>Session</label>
-                    <select class="form-control" name="session_year_id" required>
-                      
-                      <option value="{{get_session_year.id}}">
-                        {{get_session_year}}
-                      </option>
-                      
-                    </select>
-                  </div>
-
-                  <div class="col-12 col-sm-6 mt-4">
-                    <div class="form-group">
-                      <label>Attendance Date</label>
-                      <input type="date" class="form-control" name = "attendance_date" required/>
-                    </div>
-                  </div>
-
-                 <!--Table-->
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <div class="card card-table">
-                          <div class="card-body">
-                            <div class="table-responsive">
-                              <table id="table_id" class="table table-hover table-center mb-0">
-                                <thead>
-                                  <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                </thead>
-                                <tbody>
-                                  {% for i in students %}
-                                  <tr>
-                                    <td>{{i.id}}</td>
-                                    <td>{{i.admin.first_name}} {{i.admin.last_name}}</td>
-                                  </tr>
-                                  {% endfor %}
-                                </tbody>
-                              </table>
-                            </div>
-                          </div>
-                        </div>
+            <!--Table-->
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="card card-table">
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <table
+                          id="table_id"
+                          class="table table-hover table-center mb-0"
+                        >
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Lesson Titles</th>
+                              <th>Lesson Note</th>
+                              <th class="text-md-center">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for i in lessons %}
+                            <tr>
+                              <td>{{i.id}}</td>
+                              <td>{{i.lesson_title}}</td>
+                              <td>
+                                <a
+                                  class="btn btn-dark"
+                                  href="{{i.notes.url}}"
+                                  download="{{i.lesson_title}}.pdf"
+                                  >Download Note</a
+                                >
+                              </td>
+                              <td class="text-md-center">
+                                <a class="btn btn-info" href="#">Update</a>
+                                <a
+                                  class="btn btn-danger"
+                                  href="{% url 'delete_lesson' i.id %}" "
+                                  onclick="return confirm('Are you sure to delete?');"
+                                  >Delete</a
+                                >
+                              </td>
+                              {% endfor %}
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
-                  <!--EndTable-->
-                  <div class="col-md-12 mt-4 ">
-                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
-                  </div>
                 </div>
-              </form>
-
-            {% endif %}
-
+              </div>
+            </div>
+            <!--EndTable-->
           </div>
+
+          {% endif %}
         </div>
       </div>
     </div>
   </div>
- 
+</div>
 {% endblock content %}

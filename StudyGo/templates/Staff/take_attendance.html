@@ -18,14 +18,12 @@
   
     
     {% include 'includes/messages.html' %}
-  
+    {% if action is None %}
+
     <div class="row">
       <div class="col-sm-12">
         <div class="card">
           <div class="card-body">
-
-            {% if action is None %}
-
             <form action = "?action=get_student" method = "POST">
               {% csrf_token %}
               <div class="row">
@@ -54,7 +52,6 @@
                     {% endfor %}
                   </select>
                 </div>
-  
                 <div class="col-12 mt-4">
                   <button type="submit" class="btn btn-primary">Fetch Student</button>
                 </div>
@@ -101,7 +98,7 @@
                   </div>
 
                  <!--Table-->
-                  <div class="container">
+                  <div class="col-12 mt-4">
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="card card-table">
@@ -139,14 +136,13 @@
                   </div>
                 </div>
               </form>
-
-            {% endif %}
-
           </div>
         </div>
       </div>
     </div>
   </div>
+  
+  {% endif %}
   <script>
     const checkAll = document.getElementById('check-all');
     const checkboxes = document.querySelectorAll('input[name="student_id"]');

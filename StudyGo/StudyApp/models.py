@@ -165,6 +165,7 @@ class Lesson(models.Model):
 
     subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)
     lesson_title = models.TextField()
-    notes = models.FileField(upload_to='media/lesson_note')
+    notes = models.FileField(upload_to='media/lesson_note',null=True,blank=True)
+    assignment = models.FileField(upload_to='media/lesson_assignment',null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from StudyApp.models import Attendance_Report,Student,Subject,Student_Notification,Student_Feedback,Student_leave,StudentResult
+from StudyApp.models import Attendance_Report,Student,Subject,Student_Notification,Student_Feedback,Student_leave,StudentResult,Lesson
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -141,3 +141,28 @@ def VIEW_RESULT(request):
     }
 
     return render(request,'Student/view_result.html',context)
+
+
+def STUDENT_VIEW_LESSON(request):
+
+    student = Student.objects.get(admin = request.user.id)
+    subjects = Subject.objects.filter(course = student.course_id)
+    action = request.GET.get('action')
+    get_subject = None
+    lessons = None
+
+    if request.method == "POST":
+        subject_id = request.POST.get('subject_id')
+        get_subject = Subject.objects.get(id = subject_id)
+        lessons = Lesson.objects.filter(subject_id = subject_id)
+        
+
+    context = {
+        'subjects':subjects,
+        'action':action,
+        'get_subject':get_subject,
+        'lessons':lessons
+    }
+
+
+    return render(request,'Student/view_lesson.html',context=context)

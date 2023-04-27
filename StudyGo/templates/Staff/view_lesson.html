@@ -80,6 +80,7 @@
                               <th>ID</th>
                               <th>Lesson Titles</th>
                               <th>Lesson Note</th>
+                              <th>Lesson Assignment</th>
                               <th class="text-md-center">Action</th>
                             </tr>
                           </thead>
@@ -89,21 +90,26 @@
                               <td>{{i.id}}</td>
                               <td>{{i.lesson_title}}</td>
                               <td>
-                                <a
-                                  class="btn btn-dark"
-                                  href="{{i.notes.url}}"
-                                  download="{{i.lesson_title}}.pdf"
-                                  >Download Note</a
-                                >
+                                {% if i.notes %}
+                                  <a class = "btn btn-dark"  href="{{ i.notes.url }}">Download Notes</a>
+                                  {% else %}
+                                  No notes available
+                                  {% endif %}
+                              </td>
+                              <td>
+                                  {% if i.assignment %}
+                                  <a class = "btn btn-success"  href="{{ i.assignment.url }}">Download Assignment</a>
+                                  {% else %}
+                                  No assignment available
+                                  {% endif %}
                               </td>
                               <td class="text-md-center">
                                 <a class="btn btn-info" href="#">Update</a>
                                 <a
                                   class="btn btn-danger"
-                                  href="{% url 'delete_lesson' i.id %}" "
+                                  href="{% url 'staff_delete_lesson' i.id %}" "
                                   onclick="return confirm('Are you sure to delete?');"
-                                  >Delete</a
-                                >
+                                  >Delete</a>
                               </td>
                               {% endfor %}
                             </tr>

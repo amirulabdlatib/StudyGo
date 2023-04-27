@@ -132,7 +132,7 @@ urlpatterns = [
    
     path('Staff/Add/Lesson',Staff_Views.STAFF_ADD_LESSON,name='staff_add_lesson'),
     path('Staff/View/Lesson',Staff_Views.STAFF_VIEW_LESSON,name='staff_view_lesson'),
-    path('Staff/Delete/<int:id>',Staff_Views.delete_lesson,name='delete_lesson'),
+    path('Staff/Delete/<int:id>',Staff_Views.delete_lesson,name='staff_delete_lesson'),
 
 
     #Student Urls
@@ -148,6 +148,6 @@ urlpatterns = [
     path('Student/Leave_save',Student_Views.STUDENT_LEAVE_SAVE,name='student_leave_save'),
 
     path('Student/View_Attendance',Student_Views.STUDENT_VIEW_ATTENDANCE,name='student_view_attendance'),
-
+    path('Student/View_Lesson',Student_Views.STUDENT_VIEW_LESSON,name='student_view_lesson'),
 
 ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

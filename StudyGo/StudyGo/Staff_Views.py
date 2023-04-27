@@ -313,13 +313,15 @@ def STAFF_ADD_LESSON(request):
         subject_id = request.POST.get('subject_id')
         lesson_title = request.POST.get('lesson_title')
         notes = request.FILES.get('lesson_file')
+        assignment = request.FILES.get('assignment_file')
 
         subject = Subject.objects.get(id = subject_id)
 
         lesson = Lesson(
             subject_id = subject,
             lesson_title = lesson_title,
-            notes = notes
+            notes = notes,
+            assignment = assignment
         ) 
 
         lesson.save()

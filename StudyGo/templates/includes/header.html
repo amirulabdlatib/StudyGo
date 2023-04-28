@@ -46,7 +46,7 @@
                     <img
                       class="avatar-img rounded-circle"
                       alt="User Image"
-                      src="assets/img/profiles/avatar-02.jpg"
+                      src="{% static 'assets/img/noimg.jpg' %}"
                     />
                   </span>
                   <div class="media-body">
@@ -68,7 +68,7 @@
                     <img
                       class="avatar-img rounded-circle"
                       alt="User Image"
-                      src="assets/img/profiles/avatar-11.jpg"
+                      src="{% static 'assets/img/noimg.jpg' %}"
                     />
                   </span>
                   <div class="media-body">
@@ -91,7 +91,7 @@
                     <img
                       class="avatar-img rounded-circle"
                       alt="User Image"
-                      src="assets/img/profiles/avatar-17.jpg"
+                      src="{% static 'assets/img/noimg.jpg' %}"
                     />
                   </span>
                   <div class="media-body">
@@ -114,7 +114,7 @@
                     <img
                       class="avatar-img rounded-circle"
                       alt="User Image"
-                      src="assets/img/profiles/avatar-13.jpg"
+                      src="{% static 'assets/img/noimg.jpg' %}"
                     />
                   </span>
                   <div class="media-body">
@@ -189,7 +189,7 @@
           </div>
         </div>
         <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
-        <a class="dropdown-item" href="inbox.html">Inbox</a>
+        <a class="dropdown-item" href="">Inbox</a>
         <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
       </div>
     </li>

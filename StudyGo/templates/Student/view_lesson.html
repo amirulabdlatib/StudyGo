@@ -86,6 +86,7 @@
                                   <th>Lesson Name</th>
                                   <th>Notes</th>
                                   <th>Assignment</th>
+                                  <th>Upload Assignment</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -107,6 +108,13 @@
                                     No assignment available
                                     {% endif %}
                                 </td>
+                                <td>
+                                  {% if i.assignment %}
+                                  <a class = "btn btn-success"  href="#">Send Assignment</a>
+                                  {% else %}
+                                  No work to be submitted 
+                                  {% endif %}
+                              </td>
                                 </tr>
                                 {% endfor %}
                               </tbody>

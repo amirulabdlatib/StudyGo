@@ -130,10 +130,11 @@ urlpatterns = [
     path('Staff/Feedback/Save',Staff_Views.STAFF_FEEDBACK_SAVE,name='staff_feedback_save'),
 
    
-    path('Staff/Add/Lesson',Staff_Views.STAFF_ADD_LESSON,name='staff_add_lesson'),
-    path('Staff/View/Lesson',Staff_Views.STAFF_VIEW_LESSON,name='staff_view_lesson'),
-    path('Staff/Delete/<int:id>',Staff_Views.delete_lesson,name='staff_delete_lesson'),
-
+    path('Staff/Lesson/Add',Staff_Views.STAFF_ADD_LESSON,name='staff_add_lesson'),
+    path('Staff/Lesson/View',Staff_Views.STAFF_VIEW_LESSON,name='staff_view_lesson'),
+    path('Staff/Lesson/Delete/<int:id>',Staff_Views.delete_lesson,name='staff_delete_lesson'),
+    path('Staff/Lesson/Edit/<int:sub_id>/<int:les_id>',Staff_Views.STAFF_EDIT_LESSON,name='staff_edit_lesson'),
+    path('Staff/Lesson/Update',Staff_Views.STAFF_UPDATE_LESSON,name='staff_update_lesson'),
 
     #Student Urls
     path('Student/Home',Student_Views.HOME,name='student_home'),

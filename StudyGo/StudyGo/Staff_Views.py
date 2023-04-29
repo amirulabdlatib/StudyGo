@@ -341,3 +341,43 @@ def delete_lesson(request,id):
    messages.success(request,'Lesson Successfully Deleted!')
 
    return redirect('staff_view_lesson')
+
+def STAFF_EDIT_LESSON(request,sub_id,les_id):
+
+    subject = Subject.objects.get(id = sub_id)
+    lesson = Lesson.objects.get(id = les_id)
+
+
+    context = {
+        'sub': subject,
+        'lesson':lesson,
+    }
+
+    return render(request,'Staff/edit_lesson.html',context=context)
+
+def STAFF_UPDATE_LESSON(request):
+   if request.method == "POST":
+       lesson_id = request.POST.get('lesson_id')
+       subject_id = request.POST.get('subject_id')
+       lesson_title = request.POST.get('lesson_title')
+       notes = request.FILES.get('lesson_file')
+       assignment = request.FILES.get('assignment_file')
+
+       subject = Subject.objects.get(id = subject_id)
+       lesson = Lesson.objects.get(id = lesson_id)
+
+       lesson.id = lesson_id
+       lesson.subject_id = subject
+       lesson.lesson_title = lesson_title
+
+       if notes!=None and notes!="":
+           lesson.notes = notes
+        
+       if assignment!=None and assignment!="":
+           lesson.assignment = assignment
+
+       lesson.save()
+       messages.success(request,'Lesson Successfully Updated!')
+       return redirect('staff_view_lesson')
+   
+   return render(request,'Staff/view_lesson.html')

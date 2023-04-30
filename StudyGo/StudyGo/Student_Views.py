@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from StudyApp.models import Attendance_Report,Student,Subject,Student_Notification,Student_Feedback,Student_leave,StudentResult,Lesson
+from StudyApp.models import Attendance_Report,Student,Subject,Student_Notification,Student_Feedback,Student_leave,StudentResult,Lesson,Submission
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -164,5 +164,34 @@ def STUDENT_VIEW_LESSON(request):
         'lessons':lessons
     }
 
-
     return render(request,'Student/view_lesson.html',context=context)
+
+
+def STUDENT_EDIT_ASSIGNMENT(request,sub_id,les_id):
+
+    student_id = Student.objects.get(admin = request.user.id)
+    lesson_id = Lesson.objects.get(id = les_id)
+
+    context = {
+        'student':student_id,
+        'lesson':lesson_id,
+    }
+
+    return render(request,'Student/send_assignment.html',context=context)
+
+def STUDENT_SEND_ASSINGMENT(request):
+    
+    if request.method == "POST":
+        lesson_id = request.POST.get('lesson_id')
+        student_id = request.POST.get('student_id')
+        submission_file = request.FILES.get('submission_file')
+
+        lesson = Lesson.objects.get(id = lesson_id)
+        student = Student.objects.get(id = student_id)
+
+        submission = Submission(lesson_id = lesson ,student_id=student,submission_file=submission_file)
+        submission.save()
+        messages.success(request,'Assignment has been submitted!')
+        return redirect('student_view_lesson')
+
+    return render(request,'Student/view_lesson.html')

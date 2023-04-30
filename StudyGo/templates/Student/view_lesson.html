@@ -110,7 +110,7 @@
                                 </td>
                                 <td>
                                   {% if i.assignment %}
-                                  <a class = "btn btn-success"  href="#">Send Assignment</a>
+                                  <a class = "btn btn-success"  href="{% url 'student_edit_assignment' get_subject.id i.id%}">Send Assignment</a>
                                   {% else %}
                                   No work to be submitted 
                                   {% endif %}

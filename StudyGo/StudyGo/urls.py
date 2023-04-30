@@ -150,5 +150,7 @@ urlpatterns = [
 
     path('Student/View_Attendance',Student_Views.STUDENT_VIEW_ATTENDANCE,name='student_view_attendance'),
     path('Student/View_Lesson',Student_Views.STUDENT_VIEW_LESSON,name='student_view_lesson'),
+    path('Student/Edit_Assignment/<int:sub_id>/<int:les_id>',Student_Views.STUDENT_EDIT_ASSIGNMENT,name='student_edit_assignment'),
+    path('Student/Send_Assignment',Student_Views.STUDENT_SEND_ASSINGMENT,name='student_send_assignment'),
 
 ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

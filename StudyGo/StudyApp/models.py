@@ -167,3 +167,11 @@ class Lesson(models.Model):
     lesson_title = models.TextField()
     notes = models.FileField(upload_to='media/lesson_note',null=True,blank=True)
     assignment = models.FileField(upload_to='media/lesson_assignment',null=True,blank=True)
+
+class Submission(models.Model):
+
+    lesson_id = models.ForeignKey(Lesson,on_delete=models.CASCADE)
+    student_id = models.ForeignKey(Student,on_delete=models.CASCADE)
+    submission_file = models.FileField(upload_to='submission_student',null=True,blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)

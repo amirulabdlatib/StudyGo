@@ -168,6 +168,9 @@ class Lesson(models.Model):
     notes = models.FileField(upload_to='media/lesson_note',null=True,blank=True)
     assignment = models.FileField(upload_to='media/lesson_assignment',null=True,blank=True)
 
+    def __str__(self):
+        return self.lesson_title
+
 class Submission(models.Model):
 
     lesson_id = models.ForeignKey(Lesson,on_delete=models.CASCADE)
@@ -175,3 +178,6 @@ class Submission(models.Model):
     submission_file = models.FileField(upload_to='submission_student',null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.student_id.admin.first_name + " " + self.student_id.admin.last_name + " submit " + "for lesson: " + self.lesson_id.lesson_title

@@ -135,6 +135,7 @@ urlpatterns = [
     path('Staff/Lesson/Delete/<int:id>',Staff_Views.delete_lesson,name='staff_delete_lesson'),
     path('Staff/Lesson/Edit/<int:sub_id>/<int:les_id>',Staff_Views.STAFF_EDIT_LESSON,name='staff_edit_lesson'),
     path('Staff/Lesson/Update',Staff_Views.STAFF_UPDATE_LESSON,name='staff_update_lesson'),
+    path('Staff/Lesson/View_Assignments/<int:sub_id>/<int:les_id>',Staff_Views.STAFF_VIEW_ASSIGNMENTS,name='staff_view_assignment'),
 
     #Student Urls
     path('Student/Home',Student_Views.HOME,name='student_home'),
@@ -152,5 +153,6 @@ urlpatterns = [
     path('Student/View_Lesson',Student_Views.STUDENT_VIEW_LESSON,name='student_view_lesson'),
     path('Student/Edit_Assignment/<int:sub_id>/<int:les_id>',Student_Views.STUDENT_EDIT_ASSIGNMENT,name='student_edit_assignment'),
     path('Student/Send_Assignment',Student_Views.STUDENT_SEND_ASSINGMENT,name='student_send_assignment'),
+    
 
 ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

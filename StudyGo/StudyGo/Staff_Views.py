@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from StudyApp.models import Lesson,Attendance_Report,Attendance,Session_Year,Student,Staff,Subject,Staff_Notification,Staff_leave,Staff_Feedback,StudentResult,Course
+from StudyApp.models import Lesson,Attendance_Report,Attendance,Session_Year,Student,Staff,Subject,Staff_Notification,Staff_leave,Staff_Feedback,StudentResult,Submission
 from django.contrib.auth.decorators import login_required
 
 
@@ -381,3 +381,30 @@ def STAFF_UPDATE_LESSON(request):
        return redirect('staff_view_lesson')
    
    return render(request,'Staff/view_lesson.html')
+
+
+def STAFF_VIEW_ASSIGNMENTS(request,sub_id,les_id):
+
+    submission = Submission.objects.filter(lesson_id = les_id)
+    submission_count = Submission.objects.filter(lesson_id = les_id).count()
+
+
+
+
+
+
+    subject = Subject.objects.filter(id = sub_id)
+    for i in subject:
+        student_id = i.course.id
+        students = Student.objects.filter(course_id = student_id)
+        student_count = Student.objects.filter(course_id = student_id).count()
+
+        context = {
+            'students':students,
+            'student_count':student_count,
+            'submission':submission,
+            'submission_count':submission_count,
+        }    
+    
+
+    return render(request,'Staff/view_assignments.html',context=context)

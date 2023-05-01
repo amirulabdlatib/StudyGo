@@ -278,7 +278,7 @@ def STAFF_SAVE_RESULT(request):
             messages.success(request,'Result Are Successfully Added')
             return redirect('staff_add_result')
 
-
+@login_required(login_url='/')
 def STAFF_VIEW_LESSON(request):
 
     staff_id = Staff.objects.get(admin = request.user.id)
@@ -303,7 +303,7 @@ def STAFF_VIEW_LESSON(request):
 
     return render(request,'Staff/view_lesson.html',context=context)
 
-
+@login_required(login_url='/')
 def STAFF_ADD_LESSON(request):
 
     staff = Staff.objects.get(admin = request.user.id)
@@ -334,6 +334,7 @@ def STAFF_ADD_LESSON(request):
 
     return render(request,'Staff/add_lesson.html',context=context)
 
+@login_required(login_url='/')
 def delete_lesson(request,id):
 
    lesson = Lesson.objects.get(id=id)
@@ -342,6 +343,7 @@ def delete_lesson(request,id):
 
    return redirect('staff_view_lesson')
 
+@login_required(login_url='/')
 def STAFF_EDIT_LESSON(request,sub_id,les_id):
 
     subject = Subject.objects.get(id = sub_id)
@@ -355,6 +357,7 @@ def STAFF_EDIT_LESSON(request,sub_id,les_id):
 
     return render(request,'Staff/edit_lesson.html',context=context)
 
+@login_required(login_url='/')
 def STAFF_UPDATE_LESSON(request):
    if request.method == "POST":
        lesson_id = request.POST.get('lesson_id')
@@ -382,16 +385,11 @@ def STAFF_UPDATE_LESSON(request):
    
    return render(request,'Staff/view_lesson.html')
 
-
+@login_required(login_url='/')
 def STAFF_VIEW_ASSIGNMENTS(request,sub_id,les_id):
 
     submission = Submission.objects.filter(lesson_id = les_id)
     submission_count = Submission.objects.filter(lesson_id = les_id).count()
-
-
-
-
-
 
     subject = Subject.objects.filter(id = sub_id)
     for i in subject:

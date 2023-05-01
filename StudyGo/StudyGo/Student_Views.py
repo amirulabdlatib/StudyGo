@@ -142,7 +142,7 @@ def VIEW_RESULT(request):
 
     return render(request,'Student/view_result.html',context)
 
-
+@login_required(login_url='/')
 def STUDENT_VIEW_LESSON(request):
 
     student = Student.objects.get(admin = request.user.id)
@@ -166,7 +166,7 @@ def STUDENT_VIEW_LESSON(request):
 
     return render(request,'Student/view_lesson.html',context=context)
 
-
+@login_required(login_url='/')
 def STUDENT_EDIT_ASSIGNMENT(request,sub_id,les_id):
 
     student_id = Student.objects.get(admin = request.user.id)
@@ -179,6 +179,7 @@ def STUDENT_EDIT_ASSIGNMENT(request,sub_id,les_id):
 
     return render(request,'Student/send_assignment.html',context=context)
 
+@login_required(login_url='/')
 def STUDENT_SEND_ASSINGMENT(request):
     
     if request.method == "POST":

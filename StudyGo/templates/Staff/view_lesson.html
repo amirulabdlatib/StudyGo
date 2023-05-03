@@ -104,7 +104,13 @@
                                   {% endif %}
                               </td>
                               <td class="text-md-center">
+                                {% if i.assignment %}
                                 <a class="btn btn-info" href="{% url 'staff_view_assignment' get_subject.id i.id%}">View Student Work</a>
+                                {% else %}
+                                <button class="btn btn-info" disabled="disabled">
+                                  View Student Work
+                                </button>
+                                {% endif %}
                                 <a class="btn btn-warning" href="{% url 'staff_edit_lesson' get_subject.id i.id %}">Update</a>
                                 <a
                                   class="btn btn-danger"

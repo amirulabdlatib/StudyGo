@@ -175,7 +175,8 @@ class Submission(models.Model):
 
     lesson_id = models.ForeignKey(Lesson,on_delete=models.CASCADE)
     student_id = models.ForeignKey(Student,on_delete=models.CASCADE)
-    submission_file = models.FileField(upload_to='submission_student',null=True,blank=True)
+    submission_file = models.FileField(upload_to='media/submission_student',null=True,blank=True)
+    submission_status = models.IntegerField(null=True,default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

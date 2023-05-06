@@ -190,7 +190,7 @@ def STUDENT_SEND_ASSINGMENT(request):
         lesson = Lesson.objects.get(id = lesson_id)
         student = Student.objects.get(id = student_id)
 
-        submission = Submission(lesson_id = lesson ,student_id=student,submission_file=submission_file)
+        submission = Submission(lesson_id = lesson ,student_id=student,submission_file=submission_file,submission_status = 1)
         submission.save()
         messages.success(request,'Assignment has been submitted!')
         return redirect('student_view_lesson')

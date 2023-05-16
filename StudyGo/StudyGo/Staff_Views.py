@@ -4,12 +4,12 @@ from StudyApp.models import Lesson,Attendance_Report,Attendance,Session_Year,Stu
 from django.contrib.auth.decorators import login_required
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def HOME(request):
     
     return render(request,'Staff/home.html')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def NOTIFICATIONS(request):
 
     staff = Staff.objects.filter(admin = request.user.id)
@@ -26,7 +26,7 @@ def NOTIFICATIONS(request):
     return render(request,'Staff/notification.html',context)
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_NOTIFICATION_MARK_AS_DONE(request,status):
 
     notification = Staff_Notification.objects.get( id = status )
@@ -35,7 +35,7 @@ def STAFF_NOTIFICATION_MARK_AS_DONE(request,status):
 
     return redirect('notifications')
     
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_APPLY_LEAVE(request):
     staff = Staff.objects.filter(admin = request.user.id)
     for i in staff:
@@ -49,7 +49,7 @@ def STAFF_APPLY_LEAVE(request):
 
         return render(request,'Staff/apply_leave.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_APPLY_LEAVE_SAVE(request):
     
     if request.method == "POST":
@@ -69,7 +69,7 @@ def STAFF_APPLY_LEAVE_SAVE(request):
         return redirect('staff_apply_leave')
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_FEEDBACK(request):
     staff_id = Staff.objects.get(admin = request.user.id)
 
@@ -83,7 +83,7 @@ def STAFF_FEEDBACK(request):
     return render(request,'Staff/feedback.html',context)
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_FEEDBACK_SAVE(request):
     
     if request.method == 'POST':
@@ -100,7 +100,7 @@ def STAFF_FEEDBACK_SAVE(request):
         return redirect('staff_feedback')
     
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_TAKE_ATTENDANCE(request):
 
     staff_id = Staff.objects.get(admin = request.user.id)
@@ -137,7 +137,7 @@ def STAFF_TAKE_ATTENDANCE(request):
     return render(request,'Staff/take_attendance.html',context)
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_SAVE_ATTENDANCE(request):
     
     if request.method == "POST":
@@ -170,7 +170,7 @@ def STAFF_SAVE_ATTENDANCE(request):
 
     return redirect('staff_take_attendance')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_VIEW_ATTENDANCE(request):
 
     subject = Subject.objects.all()
@@ -208,7 +208,7 @@ def STAFF_VIEW_ATTENDANCE(request):
     return render(request,'Staff/view_attendance.html',context)
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_ADD_RESULT(request):
 
     staff = Staff.objects.get(admin = request.user.id)
@@ -246,7 +246,7 @@ def STAFF_ADD_RESULT(request):
     return render(request,'Staff/add_result.html',context)
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_SAVE_RESULT(request):
     
     if request.method == "POST":
@@ -278,7 +278,7 @@ def STAFF_SAVE_RESULT(request):
             messages.success(request,'Result Are Successfully Added')
             return redirect('staff_add_result')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_VIEW_LESSON(request):
 
     staff_id = Staff.objects.get(admin = request.user.id)
@@ -303,7 +303,7 @@ def STAFF_VIEW_LESSON(request):
 
     return render(request,'Staff/view_lesson.html',context=context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_ADD_LESSON(request):
 
     staff = Staff.objects.get(admin = request.user.id)
@@ -334,7 +334,7 @@ def STAFF_ADD_LESSON(request):
 
     return render(request,'Staff/add_lesson.html',context=context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def delete_lesson(request,id):
 
    lesson = Lesson.objects.get(id=id)
@@ -343,7 +343,7 @@ def delete_lesson(request,id):
 
    return redirect('staff_view_lesson')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_EDIT_LESSON(request,sub_id,les_id):
 
     subject = Subject.objects.get(id = sub_id)
@@ -357,7 +357,7 @@ def STAFF_EDIT_LESSON(request,sub_id,les_id):
 
     return render(request,'Staff/edit_lesson.html',context=context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_UPDATE_LESSON(request):
    if request.method == "POST":
        lesson_id = request.POST.get('lesson_id')
@@ -385,7 +385,7 @@ def STAFF_UPDATE_LESSON(request):
    
    return render(request,'Staff/view_lesson.html')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_VIEW_ASSIGNMENTS(request,sub_id,les_id):
 
     submission = Submission.objects.filter(lesson_id = les_id)

@@ -4,12 +4,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def HOME(request):
     return render(request,'Student/home.html')
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_NOTIFICATION(request):
 
     student = Student.objects.filter(admin = request.user.id)
@@ -25,7 +25,7 @@ def STUDENT_NOTIFICATION(request):
 
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_NOTIFICATION_MARK_AS_DONE(request,status):
 
     notification = Student_Notification.objects.get(id = status)
@@ -33,7 +33,7 @@ def STUDENT_NOTIFICATION_MARK_AS_DONE(request,status):
     notification.save()
     return redirect('student_notification')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_FEEDBACK(request):
 
     student_id = Student.objects.get(admin = request.user.id)
@@ -45,7 +45,7 @@ def STUDENT_FEEDBACK(request):
 
     return render(request,'Student/feedback.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_FEEDBACK_SAVE(request):
     if request.method == "POST":
         feedback = request.POST.get('feedback')
@@ -61,7 +61,7 @@ def STUDENT_FEEDBACK_SAVE(request):
         return redirect('student_feedback')
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_LEAVE(request):
 
     student = Student.objects.get(admin = request.user.id)
@@ -74,7 +74,7 @@ def STUDENT_LEAVE(request):
     return render(request,'Student/apply_leave.html',context)
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_LEAVE_SAVE(request):
     if request.method == "POST":
         leave_date = request.POST.get('leave_date')
@@ -93,7 +93,7 @@ def STUDENT_LEAVE_SAVE(request):
         return redirect('student_leave')
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_VIEW_ATTENDANCE(request):
 
     student = Student.objects.get(admin = request.user.id)
@@ -122,7 +122,7 @@ def STUDENT_VIEW_ATTENDANCE(request):
     return render(request,'Student/view_attendance.html',context)
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def VIEW_RESULT(request):
     mark = None
     student = Student.objects.get(admin = request.user.id)
@@ -142,11 +142,12 @@ def VIEW_RESULT(request):
 
     return render(request,'Student/view_result.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_VIEW_LESSON(request):
 
     student = Student.objects.get(admin = request.user.id)
     subjects = Subject.objects.filter(course = student.course_id)
+    submissions = Submission.objects.filter(student_id = student)
     action = request.GET.get('action')
     get_subject = None
     lessons = None
@@ -161,12 +162,13 @@ def STUDENT_VIEW_LESSON(request):
         'subjects':subjects,
         'action':action,
         'get_subject':get_subject,
-        'lessons':lessons
+        'lessons':lessons,
+        'submissions':submissions,
     }
 
     return render(request,'Student/view_lesson.html',context=context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_EDIT_ASSIGNMENT(request,sub_id,les_id):
 
     student_id = Student.objects.get(admin = request.user.id)
@@ -179,7 +181,7 @@ def STUDENT_EDIT_ASSIGNMENT(request,sub_id,les_id):
 
     return render(request,'Student/send_assignment.html',context=context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_SEND_ASSINGMENT(request):
     
     if request.method == "POST":
@@ -190,9 +192,15 @@ def STUDENT_SEND_ASSINGMENT(request):
         lesson = Lesson.objects.get(id = lesson_id)
         student = Student.objects.get(id = student_id)
 
-        submission = Submission(lesson_id = lesson ,student_id=student,submission_file=submission_file,submission_status = 1)
-        submission.save()
-        messages.success(request,'Assignment has been submitted!')
+        # Check if the student has already submitted for the lesson
+        existing_submission = Submission.objects.filter(lesson_id = lesson, student_id = student).exists()
+        if existing_submission:
+            messages.error(request,'You have already submitted an assignment for this lesson.')
+            return redirect('student_view_lesson')
+        else:
+            submission = Submission(lesson_id = lesson ,student_id=student,submission_file=submission_file,submission_status = 1)
+            submission.save()
+            messages.success(request,'Assignment has been submitted!')
         return redirect('student_view_lesson')
 
     return render(request,'Student/view_lesson.html')

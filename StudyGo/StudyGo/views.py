@@ -8,6 +8,9 @@ from StudyApp.models import CustomUser
 def BASE(request):
     return render(request,'base.html')
 
+def index(request):
+    return render(request,'index.html')
+
 def LOGIN(request):
     return render(request,'login.html')
 
@@ -36,7 +39,7 @@ def doLogout(request):
     logout(request)
     return redirect('login')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def PROFILE(request):
     user = CustomUser.objects.get(id = request.user.id)
     
@@ -46,7 +49,7 @@ def PROFILE(request):
 
     return render(request,'profile.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def PROFILE_UPDATE(request):
     if request.method == "POST":
         profile_pic = request.FILES.get('profile_pic')

@@ -4,7 +4,7 @@ from StudyApp.models import Attendance,Attendance_Report,Course,Session_Year,Cus
 from django.contrib import messages
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def HOME(request):
     student_count = Student.objects.all().count()
     staff_count = Staff.objects.all().count()
@@ -26,7 +26,7 @@ def HOME(request):
     return render(request,'Hod/Home.html',context)
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def ADD_STUDENT(request):
     course = Course.objects.all()
     session_year = Session_Year.objects.all()
@@ -86,7 +86,7 @@ def ADD_STUDENT(request):
 
     return render(request,'Hod/add_student.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def VIEW_STUDENT(request):
 
     student = Student.objects.all()
@@ -97,7 +97,7 @@ def VIEW_STUDENT(request):
 
     return render(request,'Hod/view_student.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def EDIT_STUDENT(request,id):
     student = Student.objects.filter(id = id)
     course = Course.objects.all()
@@ -111,7 +111,7 @@ def EDIT_STUDENT(request,id):
 
     return render(request,'Hod/edit_student.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def UPDATE_STUDENT(request):
     if request.method == 'POST':
         student_id = request.POST.get('student_id')
@@ -156,7 +156,7 @@ def UPDATE_STUDENT(request):
 
     return render(request,'Hod/edit_student.html')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def DELETE_STUDENT(request,admin):
     student = CustomUser.objects.get(id = admin)
     student.delete()
@@ -165,7 +165,7 @@ def DELETE_STUDENT(request,admin):
 
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def ADD_COURSE(request):
 
     if request.method == "POST":
@@ -179,7 +179,7 @@ def ADD_COURSE(request):
         return redirect('add_course')
     return render(request,'Hod/add_course.html')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def VIEW_COURSE(request):
 
     course = Course.objects.all()
@@ -188,7 +188,7 @@ def VIEW_COURSE(request):
     }
     return render(request,'Hod/view_course.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def EDIT_COURSE(request,id):
 
     course = Course.objects.get(id = id)
@@ -199,7 +199,7 @@ def EDIT_COURSE(request,id):
 
     return render(request,'Hod/edit_course.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def UPDATE_COURSE(request):
 
     if request.method == "POST":
@@ -214,7 +214,7 @@ def UPDATE_COURSE(request):
 
     return render(request,'Hod/edit_course.html')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def DELETE_COURSE(request,id):
     course = Course.objects.get(id = id)
     course.delete()
@@ -224,7 +224,7 @@ def DELETE_COURSE(request,id):
 
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def ADD_STAFF(request):
 
     if request.method == 'POST':
@@ -268,7 +268,7 @@ def ADD_STAFF(request):
         
     return render(request,'Hod/add_staff.html')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def VIEW_STAFF(request):
 
     staff = Staff.objects.all()
@@ -279,7 +279,7 @@ def VIEW_STAFF(request):
 
     return render(request,'Hod/view_staff.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def EDIT_STAFF(request,id):
 
     staff = Staff.objects.get(id = id)
@@ -290,7 +290,7 @@ def EDIT_STAFF(request,id):
 
     return render(request,'Hod/edit_staff.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def UPDATE_STAFF(request):
     
     if request.method == "POST":
@@ -328,7 +328,7 @@ def UPDATE_STAFF(request):
 
     return render(request,'Hod/edit_staff.html')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def DELETE_STAFF(request,admin):
     
     staff = CustomUser.objects.get( id = admin)
@@ -338,7 +338,7 @@ def DELETE_STAFF(request,admin):
 
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def ADD_SUBJECT(request):
     course = Course.objects.all()
     staff = Staff.objects.all()
@@ -368,7 +368,7 @@ def ADD_SUBJECT(request):
 
     return render(request,'Hod/add_subject.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def VIEW_SUBJECT(request):
 
     subject = Subject.objects.all()
@@ -379,7 +379,7 @@ def VIEW_SUBJECT(request):
 
     return render(request,'Hod/view_subject.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def EDIT_SUBJECT(request,id):
 
     subject = Subject.objects.get( id = id)
@@ -394,7 +394,7 @@ def EDIT_SUBJECT(request,id):
 
     return render(request,'Hod/edit_subject.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def UPDATE_SUBJECT(request):
 
     if request.method == 'POST':
@@ -420,7 +420,7 @@ def UPDATE_SUBJECT(request):
     
     return render(request,'Hod/edit_subject.html')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def DELETE_SUBJECT(request,id):
     subject = Subject.objects.filter( id = id)
     subject.delete()
@@ -429,7 +429,7 @@ def DELETE_SUBJECT(request,id):
 
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def ADD_SESSION(request):
 
     if request.method == 'POST':
@@ -447,7 +447,7 @@ def ADD_SESSION(request):
 
     return render(request,'Hod/add_session.html')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def VIEW_SESSION(request):
 
     session = Session_Year.objects.all()
@@ -458,7 +458,7 @@ def VIEW_SESSION(request):
 
     return render(request,'Hod/view_session.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def EDIT_SESSION(request,id):
 
     session = Session_Year.objects.filter( id = id)
@@ -470,7 +470,7 @@ def EDIT_SESSION(request,id):
 
     return render(request,'Hod/edit_session.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def UPDATE_SESSION(request):
 
     if request.method == 'POST':
@@ -489,7 +489,7 @@ def UPDATE_SESSION(request):
         messages.success(request,'Session Are Successfully Updated !')
         return redirect('view_session')
 
-@login_required(login_url='/')    
+@login_required(login_url='login')    
 def DELETE_SESSION(request,id):
     
     session = Session_Year.objects.get( id = id)
@@ -501,7 +501,7 @@ def DELETE_SESSION(request,id):
 
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_SEND_NOTIFICATION(request):
 
     staff = Staff.objects.all()
@@ -514,7 +514,7 @@ def STAFF_SEND_NOTIFICATION(request):
 
     return render(request,'Hod/staff_notification.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def SAVE_STAFF_NOTIFICATION(request):
     
     if request.method == "POST":
@@ -532,7 +532,7 @@ def SAVE_STAFF_NOTIFICATION(request):
         messages.success(request,'Notification Is Successfully Sent! ')
         return redirect('staff_send_notification')
 
-@login_required(login_url='/')    
+@login_required(login_url='login')    
 def Staff_Leave_View(request):
 
     staff_leave = Staff_leave.objects.all()
@@ -544,14 +544,14 @@ def Staff_Leave_View(request):
 
     return render(request,'Hod/staff_leave.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_APPROVE_LEAVE(request,id):
     leave = Staff_leave.objects.get(id = id)
     leave.status = 1
     leave.save()
     return redirect('staff_leave_view')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_DISAPPROVE_LEAVE(request,id):
     leave = Staff_leave.objects.get(id = id)
     leave.status = 2
@@ -559,7 +559,7 @@ def STAFF_DISAPPROVE_LEAVE(request,id):
     return redirect('staff_leave_view')
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_LEAVE_VIEW(request):
 
     student_leave = Student_leave.objects.all()
@@ -570,7 +570,7 @@ def STUDENT_LEAVE_VIEW(request):
 
     return render(request,'Hod/student_leave.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_APPROVE_LEAVE(request,id):
     student_leave = Student_leave.objects.get(id = id)
     student_leave.status = 1
@@ -578,7 +578,7 @@ def STUDENT_APPROVE_LEAVE(request,id):
 
     return redirect('student_leave_view')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_DISAPPROVE_LEAVE(request,id):
     student_leave = Student_leave.objects.get(id = id)
     student_leave.status = 2
@@ -586,7 +586,7 @@ def STUDENT_DISAPPROVE_LEAVE(request,id):
 
     return redirect('student_leave_view')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_FEEDBACK(request):
     feedback = Staff_Feedback.objects.all()
     feedback_history = Staff_Feedback.objects.all().order_by('-id')[0:5]
@@ -599,7 +599,7 @@ def STAFF_FEEDBACK(request):
 
     return render(request,'Hod/staff_feedback.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STAFF_FEEDBACK_SAVE(request):
 
     if request.method == "POST":
@@ -613,7 +613,7 @@ def STAFF_FEEDBACK_SAVE(request):
 
         return redirect('staff_feedback_reply')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_FEEDBACK(request):
 
     feedback = Student_Feedback.objects.all()
@@ -626,7 +626,7 @@ def STUDENT_FEEDBACK(request):
 
     return render(request,'Hod/student_feedback.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def REPLY_STUDENT_FEEDBACK(request):
     if request.method == "POST":
         feedback_id = request.POST.get('feedback_id')
@@ -638,7 +638,7 @@ def REPLY_STUDENT_FEEDBACK(request):
         feedback.save()
         return redirect('get_student_feedback')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def STUDENT_SEND_NOTIFICATION(request):
 
     student = Student.objects.all()
@@ -650,7 +650,7 @@ def STUDENT_SEND_NOTIFICATION(request):
 
     return render(request,'Hod/student_notification.html',context)
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def SAVE_STUDENT_NOTIFICATION(request):
     if request.method == "POST":
         message = request.POST.get('message')
@@ -667,7 +667,7 @@ def SAVE_STUDENT_NOTIFICATION(request):
         messages.success(request,'Student Notification Are Successfully Sent')
         return redirect('student_send_notification')
     
-@login_required(login_url='/')
+@login_required(login_url='login')
 def VIEW_ATTENDANCE(request):
 
     subject = Subject.objects.all()

@@ -22,11 +22,11 @@ from . import views,Hod_Views,Staff_Views,Student_Views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('base/',views.BASE,name='base'),
-
+    path('',views.index,name='index'),
 
 
     #login
-    path('',views.LOGIN,name='login'),
+    path('login',views.LOGIN,name='login'),
     path('doLogin',views.doLogin,name='doLogin'),
     path('doLogout',views.doLogout,name='logout'),
 

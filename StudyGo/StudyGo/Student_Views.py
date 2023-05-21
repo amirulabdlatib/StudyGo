@@ -4,12 +4,12 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def HOME(request):
     return render(request,'Student/home.html')
 
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def STUDENT_NOTIFICATION(request):
 
     student = Student.objects.filter(admin = request.user.id)
@@ -25,7 +25,7 @@ def STUDENT_NOTIFICATION(request):
 
 
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def STUDENT_NOTIFICATION_MARK_AS_DONE(request,status):
 
     notification = Student_Notification.objects.get(id = status)
@@ -33,7 +33,7 @@ def STUDENT_NOTIFICATION_MARK_AS_DONE(request,status):
     notification.save()
     return redirect('student_notification')
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def STUDENT_FEEDBACK(request):
 
     student_id = Student.objects.get(admin = request.user.id)
@@ -45,7 +45,7 @@ def STUDENT_FEEDBACK(request):
 
     return render(request,'Student/feedback.html',context)
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def STUDENT_FEEDBACK_SAVE(request):
     if request.method == "POST":
         feedback = request.POST.get('feedback')
@@ -61,7 +61,7 @@ def STUDENT_FEEDBACK_SAVE(request):
         return redirect('student_feedback')
 
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def STUDENT_LEAVE(request):
 
     student = Student.objects.get(admin = request.user.id)
@@ -74,7 +74,7 @@ def STUDENT_LEAVE(request):
     return render(request,'Student/apply_leave.html',context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def STUDENT_LEAVE_SAVE(request):
     if request.method == "POST":
         leave_date = request.POST.get('leave_date')
@@ -93,7 +93,7 @@ def STUDENT_LEAVE_SAVE(request):
         return redirect('student_leave')
 
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def STUDENT_VIEW_ATTENDANCE(request):
 
     student = Student.objects.get(admin = request.user.id)
@@ -122,7 +122,7 @@ def STUDENT_VIEW_ATTENDANCE(request):
     return render(request,'Student/view_attendance.html',context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def VIEW_RESULT(request):
     mark = None
     student = Student.objects.get(admin = request.user.id)
@@ -142,7 +142,7 @@ def VIEW_RESULT(request):
 
     return render(request,'Student/view_result.html',context)
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def STUDENT_VIEW_LESSON(request):
 
     student = Student.objects.get(admin = request.user.id)
@@ -168,7 +168,7 @@ def STUDENT_VIEW_LESSON(request):
 
     return render(request,'Student/view_lesson.html',context=context)
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def STUDENT_EDIT_ASSIGNMENT(request,sub_id,les_id):
 
     student_id = Student.objects.get(admin = request.user.id)
@@ -181,7 +181,7 @@ def STUDENT_EDIT_ASSIGNMENT(request,sub_id,les_id):
 
     return render(request,'Student/send_assignment.html',context=context)
 
-@login_required(login_url='login')
+@login_required(login_url='login/')
 def STUDENT_SEND_ASSINGMENT(request):
     
     if request.method == "POST":

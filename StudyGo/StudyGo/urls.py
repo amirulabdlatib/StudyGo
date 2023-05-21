@@ -26,7 +26,7 @@ urlpatterns = [
 
 
     #login
-    path('login',views.LOGIN,name='login'),
+    path('login/',views.LOGIN,name='login'),
     path('doLogin',views.doLogin,name='doLogin'),
     path('doLogout',views.doLogout,name='logout'),
 

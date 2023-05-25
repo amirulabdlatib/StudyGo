@@ -182,3 +182,14 @@ class Submission(models.Model):
 
     def __str__(self):
         return self.student_id.admin.first_name + " " + self.student_id.admin.last_name + " submit " + "for lesson: " + self.lesson_id.lesson_title
+    
+class Notes(models.Model):
+    student_id = models.ForeignKey(Student,on_delete=models.CASCADE)
+    subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)
+    topic = models.CharField(max_length=100)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.topic

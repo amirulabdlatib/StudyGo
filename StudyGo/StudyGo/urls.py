@@ -154,5 +154,8 @@ urlpatterns = [
     path('Student/Edit_Assignment/<int:sub_id>/<int:les_id>',Student_Views.STUDENT_EDIT_ASSIGNMENT,name='student_edit_assignment'),
     path('Student/Send_Assignment',Student_Views.STUDENT_SEND_ASSINGMENT,name='student_send_assignment'),
     
+    path('Student/View_All_Subject_Notes',Student_Views.VIEW_ALL_NOTES,name='view_all_notes'),
+    path('Student/View_Subject_Notes/<int:sub_id>',Student_Views.VIEW_NOTES,name='view_notes'),
+    path('Student/Add_Notes/<int:sub_id>',Student_Views.ADD_NOTES,name='add_notes'),
 
 ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

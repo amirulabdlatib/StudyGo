@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from StudyApp.models import Attendance_Report,Student,Subject,Student_Notification,Student_Feedback,Student_leave,StudentResult,Lesson,Submission
+from StudyApp.models import Notes,Attendance_Report,Student,Subject,Student_Notification,Student_Feedback,Student_leave,StudentResult,Lesson,Submission
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -22,7 +22,6 @@ def STUDENT_NOTIFICATION(request):
         }
 
     return render(request,'Student/notification.html',context)
-
 
 
 @login_required(login_url='login/')
@@ -204,3 +203,66 @@ def STUDENT_SEND_ASSINGMENT(request):
         return redirect('student_view_lesson')
 
     return render(request,'Student/view_lesson.html')
+
+
+@login_required(login_url='login/')
+def VIEW_ALL_NOTES(request):
+
+    student = Student.objects.get(admin = request.user.id)
+    subjects = Subject.objects.filter(course = student.course_id)
+
+    context = {
+        'subjects':subjects
+    }
+
+    return render(request,'Student/my_notes.html',context=context)
+
+
+@login_required(login_url='login/')
+def VIEW_NOTES(request,sub_id):
+
+    student = Student.objects.get(admin = request.user.id)
+    subject = Subject.objects.filter(id = sub_id)
+    notes = Notes.objects.filter(student_id = student, subject_id = sub_id)
+
+    context = {
+        'subject':subject,
+        'student':student,
+        'notes':notes,
+    }
+
+    return render(request,'Student/note.html',context=context)
+
+
+@login_required(login_url='login/')
+def ADD_NOTES(request,sub_id):
+
+    student = Student.objects.get(admin = request.user.id)
+    subject = Subject.objects.get(id = sub_id)
+
+    if request.method == 'POST':
+        student_id = request.POST.get('student_id')
+        subject_id = request.POST.get('subject_id')
+        topic = request.POST.get('topic')
+        content = request.POST.get('content')
+
+        student = Student.objects.get(id = student_id)
+        subject = Subject.objects.get(id = subject_id)
+
+        note = Notes(
+            student_id = student,
+            subject_id = subject,
+            topic = topic, 
+            content = content,
+        )
+
+        note.save()
+        messages.success(request,'Notes Are Successfully Added')
+        return redirect('view_notes',sub_id)
+
+    context = {
+        'subject':subject,
+        'student':student,     
+    }
+
+    return render(request,'Student/Add_Notes.html',context=context)

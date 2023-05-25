@@ -266,3 +266,14 @@ def ADD_NOTES(request,sub_id):
     }
 
     return render(request,'Student/Add_Notes.html',context=context)
+
+
+@login_required(login_url='login/')
+def DELETE_NOTES(request,sub_id,note_id):
+
+    note = Notes.objects.get(id = note_id)
+    note.delete()
+    messages.success(request,'Note Is Successfully Deleted')
+
+    return redirect('view_notes',sub_id)
+

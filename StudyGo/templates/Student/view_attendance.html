@@ -82,10 +82,10 @@
                             <table id="table_id" class="table table-hover table-center mb-0 ">
                               <thead>
                                 <tr>
-                                  <th>ID</th>
+                                  <th>Date</th>
                                   <th>Name</th>
-                                  <th>Created at</th>
-                                 
+                                  <th>Session</th>
+                                  <th>Status</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -93,7 +93,7 @@
                                 <tr>
                                   <td>{{i.attendance_id.attendance_data}}</td>
                                   <td>{{i.attendance_id.subject_id.name}}</td>
-                                  <td>{{i.attendance_id.session_year_id.session_start}} To {{i.attendance_id.session_year_id.session_end}}</td>
+                                  <td>{{i.attendance_id.session_year_id.session_start}} To {{i.attendance_id.session_year_id.session_end}}</td>                                  <td><span class="badge badge-success">PRESENT</span></td>
                                 </tr>
                                 {% endfor %}
                               </tbody>

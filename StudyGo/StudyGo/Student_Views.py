@@ -8,6 +8,16 @@ from django.contrib.auth.decorators import login_required
 def HOME(request):
     return render(request,'Student/home.html')
 
+def COURSE_OUTLINE(request):
+
+    student = Student.objects.get(admin = request.user.id)
+    subjects = Subject.objects.filter(course = student.course_id)
+
+    context = {
+        'subjects':subjects
+    }
+
+    return render(request,'Student/Course_outline.html',context=context)
 
 @login_required(login_url='login/')
 def STUDENT_NOTIFICATION(request):

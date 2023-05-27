@@ -139,6 +139,7 @@ urlpatterns = [
 
     #Student Urls
     path('Student/Home',Student_Views.HOME,name='student_home'),
+    path('Studennt/Course_Outline',Student_Views.COURSE_OUTLINE,name='course_outline'),
 
     path('Student/Notifications',Student_Views.STUDENT_NOTIFICATION,name='student_notification'),
     path('Student/mark_as_done/<str:status>',Student_Views.STUDENT_NOTIFICATION_MARK_AS_DONE,name='student_notification_mark_as_done'),

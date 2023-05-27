@@ -277,6 +277,33 @@ def STAFF_SAVE_RESULT(request):
             result.save()
             messages.success(request,'Result Are Successfully Added')
             return redirect('staff_add_result')
+        
+def gradebook(request):
+
+    staff_id = Staff.objects.get(admin = request.user.id)
+    subjects = Subject.objects.filter(staff = staff_id)
+    action = request.GET.get('action')
+    get_subject = None
+    result = None
+    
+
+    if action is not None:
+        if request.method == "POST":
+            subject_id = request.POST.get('subject_id')
+            get_subject = Subject.objects.get(id = subject_id)
+            subject = Subject.objects.get(id = subject_id)
+            result = StudentResult.objects.filter(subject_id = subject)
+
+    context = {
+        'subjects':subjects,
+        'action':action,
+        'get_subject':get_subject,
+        'result':result,
+        
+    }
+
+    return render(request,'Staff/gradebook.html',context=context)
+
 
 @login_required(login_url='login/')
 def STAFF_VIEW_LESSON(request):

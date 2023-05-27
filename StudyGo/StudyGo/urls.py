@@ -105,10 +105,9 @@ urlpatterns = [
 
     path('Staff/Add/Result',Staff_Views.STAFF_ADD_RESULT,name='staff_add_result'),
     path('Staff/Save/Result',Staff_Views.STAFF_SAVE_RESULT,name='staff_save_result'),
+    path('Staff/View_Gradebook',Staff_Views.gradebook,name='staff_view_gradebook'),
     
-
-
-
+    
     path('Hod/Student/feedback',Hod_Views.STUDENT_FEEDBACK,name='get_student_feedback'),
     path('Hod/Student/feedback/reply/save',Hod_Views.REPLY_STUDENT_FEEDBACK,name='reply_student_feedback'),
 

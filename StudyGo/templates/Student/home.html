@@ -2,14 +2,84 @@
 {% block content %}
 
 <div class="page-header">
-    <div class="row">
-      <div class="col-sm-12">
-        <h3 class="page-title">Student</h3>
-        <ul class="breadcrumb">
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ul>
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 class="page-title">Student</h3>
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+    <div class="card bg-one w-100">
+      <div class="card-body">
+        <div
+          class="db-widgets d-flex justify-content-between align-items-center"
+        >
+          <div class="db-icon">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <div class="db-info">
+            <h3>{{subject_total}}</h3>
+            <h6>Total Subject</h6>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+    <div class="card bg-two w-100">
+      <div class="card-body">
+        <div
+          class="db-widgets d-flex justify-content-between align-items-center"
+        >
+          <div class="db-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <div class="db-info">
+            <h3>{{notes_total}}</h3>
+            <h6>Total Notes</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+    <div class="card bg-three w-100">
+      <div class="card-body">
+        <div
+          class="db-widgets d-flex justify-content-between align-items-center"
+        >
+          <div class="db-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="db-info">
+            <h3>{{submission_total}}/{{received_assignment_total}}</h3>
+            <h6>Submission Made</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+    <div class="card bg-four w-100">
+      <div class="card-body">
+        <div
+          class="db-widgets d-flex justify-content-between align-items-center"
+        >
+          <div class="db-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="db-info">
+            <h3>{{unread_notification_total}}</h3>
+            <h6>Unread Notification</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}

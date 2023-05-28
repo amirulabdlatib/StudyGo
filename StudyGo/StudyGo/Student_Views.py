@@ -6,7 +6,26 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='login/')
 def HOME(request):
-    return render(request,'Student/home.html')
+
+    student = Student.objects.get(admin = request.user.id)
+    subject_total = Subject.objects.filter(course = student.course_id).count()
+    notes_total = Notes.objects.filter(student_id = student).count()
+    submission_total = Submission.objects.filter(student_id = student).count()
+
+    subject_id_student = Subject.objects.filter(course = student.course_id)
+    received_assignment_total = Lesson.objects.filter(assignment_status = 1, subject_id__in=subject_id_student).count()
+    unread_notification_total = Student_Notification.objects.filter(student_id = student,status = 0).count()
+    
+
+    context = {
+        'subject_total':subject_total,
+        'notes_total':notes_total,
+        'submission_total':submission_total,
+        'unread_notification_total':unread_notification_total,
+        'received_assignment_total':received_assignment_total
+    }
+
+    return render(request,'Student/home.html',context=context)
 
 def COURSE_OUTLINE(request):
 

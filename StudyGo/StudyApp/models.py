@@ -167,6 +167,7 @@ class Lesson(models.Model):
     lesson_title = models.TextField()
     notes = models.FileField(upload_to='media/lesson_note',null=True,blank=True)
     assignment = models.FileField(upload_to='media/lesson_assignment',null=True,blank=True)
+    assignment_status = models.IntegerField(null = True,default = 0)
 
     def __str__(self):
         return self.lesson_title

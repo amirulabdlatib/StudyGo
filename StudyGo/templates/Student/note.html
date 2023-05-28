@@ -16,7 +16,7 @@
           <h5 class="card-title">{{i.topic}}</h5>
           <p class="card-text">{{i.content}}</p>
           <p class="card-text mt-3">Created at: {{i.created_at}}</p>
-          <div class="">
+          <div class="d-flex justify-content-between align-items-center">
             <a href="#" class="btn btn-primary">Update</a>
             <a
               href="{% url 'delete_notes' j.id i.id %}"

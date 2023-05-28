@@ -344,12 +344,23 @@ def STAFF_ADD_LESSON(request):
 
         subject = Subject.objects.get(id = subject_id)
 
-        lesson = Lesson(
-            subject_id = subject,
-            lesson_title = lesson_title,
-            notes = notes,
-            assignment = assignment
-        ) 
+        if assignment != None:
+
+            lesson = Lesson(
+                subject_id = subject,
+                lesson_title = lesson_title,
+                notes = notes,
+                assignment = assignment,
+                assignment_status = 1
+            )
+        else:
+             lesson = Lesson(
+                subject_id = subject,
+                lesson_title = lesson_title,
+                notes = notes,
+                assignment = assignment,
+                assignment_status = 0
+            )
 
         lesson.save()
         messages.success(request,'Lesson Are Successfully Added')
@@ -405,7 +416,14 @@ def STAFF_UPDATE_LESSON(request):
         
        if assignment!=None and assignment!="":
            lesson.assignment = assignment
-
+       
+       if assignment != None:
+           assignment_status = 1
+        
+       else:
+           assignment_status = 0
+           
+       lesson.assignment_status = assignment_status
        lesson.save()
        messages.success(request,'Lesson Successfully Updated!')
        return redirect('staff_view_lesson')

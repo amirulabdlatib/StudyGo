@@ -1,5 +1,4 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 
 <div class="page-header">
   <div class="row">
@@ -81,5 +80,118 @@
     </div>
   </div>
 </div>
+
+<!-- Student Info -->
+<div class="row">
+  <div class="col-md-8">
+    <div class="card mb-4 shadow-lg">
+      <div class="card-body">
+        <h4 class="card-title text-center">Student Profile</h4>
+
+        {% if student.gender == 'Male' %}
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+          <lottie-player
+            src="https://assets9.lottiefiles.com/packages/lf20_NODCLWy3iX.json"
+            background="transparent"
+            speed="1"
+            style="width: 200px; height: 200px"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+        <hr />
+
+        {% else %}
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+          <lottie-player
+            src="https://assets10.lottiefiles.com/packages/lf20_dWELSK5KyE.json"
+            background="transparent"
+            speed="1"
+            style="width: 300px; height: 300px"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+        <hr />
+
+        {% endif %}
+
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Full Name</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">
+              {{student.admin.first_name}} {{student.admin.last_name}}
+            </p>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Email</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{student.admin.email}}</p>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Gender</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{student.gender}}</p>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Course</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{student.course_id}}</p>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Session</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{student.session_year_id}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <lottie-player
+      src="https://assets10.lottiefiles.com/packages/lf20_3xtpb0bw.json"
+      background="transparent"
+      speed="1"
+      style="width: 300px; height: 300px"
+      loop
+      autoplay
+    ></lottie-player>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <lottie-player
+      src="https://assets10.lottiefiles.com/packages/lf20_ZSqxIVbhtx.json"
+      background="transparent"
+      speed="1"
+      style="width: 300px; height: 300px"
+      loop
+      autoplay
+    ></lottie-player>
+  </div>
+</div>
+<!-- End of Student Info -->
 
 {% endblock content %}

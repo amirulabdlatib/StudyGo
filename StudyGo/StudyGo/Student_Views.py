@@ -18,6 +18,7 @@ def HOME(request):
     
 
     context = {
+        'student':student,
         'subject_total':subject_total,
         'notes_total':notes_total,
         'submission_total':submission_total,

@@ -15,7 +15,14 @@ def HOME(request):
     subject_id_student = Subject.objects.filter(course = student.course_id)
     received_assignment_total = Lesson.objects.filter(assignment_status = 1, subject_id__in=subject_id_student).count()
     unread_notification_total = Student_Notification.objects.filter(student_id = student,status = 0).count()
-    
+    student_results = StudentResult.objects.filter(student_id = student)
+
+    subject_marks = []
+    subject_names = []
+
+    for result in student_results:
+        subject_marks.append(result.assignment_mark + result.exam_mark)
+        subject_names.append(result.subject_id.name)
 
     context = {
         'student':student,
@@ -23,7 +30,9 @@ def HOME(request):
         'notes_total':notes_total,
         'submission_total':submission_total,
         'unread_notification_total':unread_notification_total,
-        'received_assignment_total':received_assignment_total
+        'received_assignment_total':received_assignment_total,
+        'subject_marks':subject_marks,
+        'subject_names':subject_names,
     }
 
     return render(request,'Student/home.html',context=context)

@@ -198,4 +198,25 @@
 </div>
 <!-- End of Student Info -->
 
-{% endblock content %}
+<!-- Chart -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-chart">
+      <div class="card-header">
+        <div class="row align-items-center">
+          <div class="col-6">
+            <h5 class="card-title">Subject Marks</h5>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div id="subject_marks_chart"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End of chart -->
+
+{% include 'includes/chart_student.html' %} {% endblock content %}

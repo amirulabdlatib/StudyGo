@@ -7,7 +7,31 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='login/')
 def HOME(request):
     
-    return render(request,'Staff/home.html')
+    staff = Staff.objects.get(admin = request.user.id)
+    total_subject = Subject.objects.filter(staff = staff).count()
+    total_lessons = Lesson.objects.filter(subject_id__in=Subject.objects.filter(staff=staff)).count()
+    total_students = Student.objects.filter(course_id__in=Subject.objects.filter(staff=staff).values('course_id')).count()
+    unread_notification_total = Staff_Notification.objects.filter(staff_id=staff,status=0).count()
+
+    # Data for subject enrollment chart
+    subject_enrollments = []
+    subject_names = []
+    subjects = Subject.objects.filter(staff=staff)
+    for subject in subjects:
+        enrollment = Student.objects.filter(course_id=subject.course).count()
+        subject_enrollments.append(enrollment)
+        subject_names.append(subject.name)
+
+    context = {
+        'total_subject':total_subject,
+        'total_students':total_students,
+        'total_lessons':total_lessons,
+        'unread_notification_total': unread_notification_total,
+        'subject_enrollments': subject_enrollments,
+        'subject_names': subject_names,
+    }
+
+    return render(request,'Staff/home.html',context=context)
 
 @login_required(login_url='login/')
 def NOTIFICATIONS(request):

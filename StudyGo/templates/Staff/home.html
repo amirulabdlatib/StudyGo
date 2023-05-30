@@ -3,7 +3,7 @@
 <div class="page-header">
   <div class="row">
     <div class="col-sm-12">
-      <h3 class="page-title">Teacher</h3>
+      <h3 class="page-title">Staff</h3>
       <ul class="breadcrumb">
         <li class="breadcrumb-item active">Dashboard</li>
       </ul>
@@ -21,7 +21,7 @@
             <i class="fas fa-user-graduate"></i>
           </div>
           <div class="db-info">
-            <h3></h3>
+            <h3>{{total_subject}}</h3>
             <h6>Total Subject</h6>
           </div>
         </div>
@@ -38,7 +38,7 @@
             <i class="fas fa-chalkboard-teacher"></i>
           </div>
           <div class="db-info">
-            <h3></h3>
+            <h3>{{total_students}}</h3>
             <h6>Total Student</h6>
           </div>
         </div>
@@ -55,8 +55,8 @@
             <i class="fas fa-graduation-cap"></i>
           </div>
           <div class="db-info">
-            <h3></h3>
-            <h6>Total Pass</h6>
+            <h3>{{total_lessons}}</h3>
+            <h6>Total Lesson</h6>
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@
             <i class="fas fa-book"></i>
           </div>
           <div class="db-info">
-            <h3></h3>
+            <h3>{{unread_notification_total}}</h3>
             <h6>Unread Notification</h6>
           </div>
         </div>
@@ -81,4 +81,20 @@
   </div>
 </div>
 
-{% endblock content %}
+<!-- Chart -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-chart">
+      <div class="card-header">
+        <div class="row align-items-center"></div>
+      </div>
+      <div class="card-body">
+        <div id="subject_students_chart"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chart -->
+{% include 'includes/chart_staff.html' %} {% endblock content %}

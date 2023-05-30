@@ -27,6 +27,7 @@
                   <th>Subject Name</th>
                   <th>Assigment Mark</th>
                   <th>Exam Mark</th>
+                  <th>Total Mark</th>
 
                   <th class="text-right">Status</th>
                 </tr>
@@ -36,9 +37,11 @@
                 <tr>
                   <td>{{i.id}}</td>
                   <td>{{i.subject_id.name}}</td>
-                  <td>{{i.assignment_mark}}</td>
-                  <td>{{i.exam_mark}}</td>
-
+                  <td class="text-center">{{i.assignment_mark}}</td>
+                  <td class="text-center">{{i.exam_mark}}</td>
+                  <td class="text-center">
+                    {{ i.assignment_mark|add:i.exam_mark }}
+                  </td>
                   <td class="text-right">
                     {% if i.assignment_mark|add:i.exam_mark >= 50 %}
                     <span class="badge badge-success">PASS</span>

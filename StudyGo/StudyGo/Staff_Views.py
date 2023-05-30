@@ -309,6 +309,8 @@ def gradebook(request):
     action = request.GET.get('action')
     get_subject = None
     result = None
+    subject_marks = []
+    subject_names = []
     
 
     if action is not None:
@@ -317,12 +319,17 @@ def gradebook(request):
             get_subject = Subject.objects.get(id = subject_id)
             subject = Subject.objects.get(id = subject_id)
             result = StudentResult.objects.filter(subject_id = subject)
+            for student_result in result:
+                subject_marks.append(student_result.assignment_mark + student_result.exam_mark)
+                subject_names.append(student_result.student_id.admin.username)
 
     context = {
         'subjects':subjects,
         'action':action,
         'get_subject':get_subject,
         'result':result,
+        'subject_marks': subject_marks,
+        'subject_names': subject_names
         
     }
 

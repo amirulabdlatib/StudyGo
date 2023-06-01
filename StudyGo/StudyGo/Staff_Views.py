@@ -2,6 +2,10 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from StudyApp.models import Lesson,Attendance_Report,Attendance,Session_Year,Student,Staff,Subject,Staff_Notification,Staff_leave,Staff_Feedback,StudentResult,Submission
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
 
 
 @login_required(login_url='login/')
@@ -197,7 +201,8 @@ def STAFF_SAVE_ATTENDANCE(request):
 @login_required(login_url='login/')
 def STAFF_VIEW_ATTENDANCE(request):
 
-    subject = Subject.objects.all()
+    staff = Staff.objects.get(admin = request.user.id)
+    subject = Subject.objects.filter(staff = staff)
     session_year = Session_Year.objects.all()
     action = request.GET.get('action')
     get_subject = None
@@ -482,3 +487,26 @@ def STAFF_VIEW_ASSIGNMENTS(request,sub_id,les_id):
     
 
     return render(request,'Staff/view_assignments.html',context=context)
+
+
+def pdf_create_attendance(request):
+
+    attendance = Attendance_Report.objects.all()
+    template_path = 'Staff/view_attendance_pdf.html'
+    context = {
+        'attendance':attendance
+    }
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = 'filename="attendance_report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

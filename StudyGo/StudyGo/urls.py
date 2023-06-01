@@ -159,4 +159,8 @@ urlpatterns = [
     path('Student/Add_Notes/<int:sub_id>',Student_Views.ADD_NOTES,name='add_notes'),
     path('Student/Delete_Notes/<int:sub_id>/<int:note_id>',Student_Views.DELETE_NOTES,name='delete_notes'),
 
+    path('create-pdf-attendance-staff',Staff_Views.pdf_create_attendance,name="create_pdf_attendance_staff"),
+    path('create-pdf-result-student',Student_Views.pdf_create_result,name="create_pdf_result_student"),
+
+
 ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)

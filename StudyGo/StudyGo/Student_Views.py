@@ -2,6 +2,10 @@ from django.shortcuts import render,redirect
 from StudyApp.models import Notes,Attendance_Report,Student,Subject,Student_Notification,Student_Feedback,Student_leave,StudentResult,Lesson,Submission
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
 
 
 @login_required(login_url='login/')
@@ -315,4 +319,28 @@ def DELETE_NOTES(request,sub_id,note_id):
     messages.success(request,'Note Is Successfully Deleted')
 
     return redirect('view_notes',sub_id)
+
+
+def pdf_create_result(request):
+
+    student = Student.objects.get(admin = request.user.id)
+    result = StudentResult.objects.filter(student_id = student)
+    template_path = 'Student/view_result_pdf.html'
+    context = {
+        'result':result,
+        'student':student
+    }
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="attendance_report.pdf"'
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    # if error then show some funny view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
 

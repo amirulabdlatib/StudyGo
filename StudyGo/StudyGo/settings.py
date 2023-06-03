@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'StudyApp',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -130,3 +131,8 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'StudyApp.CustomUser'
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
